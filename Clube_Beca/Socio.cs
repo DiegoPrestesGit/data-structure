@@ -8,10 +8,10 @@ namespace Clube_Beca
 {
     public class Socio
     {
-        public int SocioID {​​ get; set; }​​
-        public string Nome {​​ get; set; }​​
-        public string Sobrenome {​​ get; set; }​​
-        public int Limite {​​ get; set; }​​
-        public int Idade {​​ get; set; }​​
+        public int SocioID { get; set; }
+        public string Nome { get;set; }
+        public string Sobrenome { get; set; }
+        public int Limite { get; set; }
+        public int Idade { get; set; }
     }
 }
