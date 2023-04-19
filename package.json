@@ -1,0 +1,23 @@
+{
+  "name": "data-structures",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/diegolikescode/data-structures.git",
+  "author": "diegolikescode <diegoprestes.git@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+	"go": "tsc && yarn node dist",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@types/jest": "^29.5.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "@typescript-eslint/parser": "^5.59.0",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "jest": "^29.5.0",
+    "prettier": "^2.8.7",
+    "typescript": "^5.0.4"
+  }
+}
