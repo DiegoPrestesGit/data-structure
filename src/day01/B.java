@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class A {
+public class B {
 
 	/**
 	 *
@@ -16,17 +16,21 @@ public class A {
 		String contents = stringFromFile(fileName);
 		String[] strArr = contents.split("");
 
-		int up = 0;
-		int down = 0;
+		int floorsCount = 0;
+		int currentFloor = 0;
 
 		for (int i = 0; i < strArr.length; i++) {
+			floorsCount++;
 			if (strArr[i].equals("(")) {
-				up += 1;
+				currentFloor++;
 			} else {
-				down += 1;
+				currentFloor--;
+			}
+			if (currentFloor == -1) {
+				System.out.println(floorsCount);
+				break;
 			}
 		}
-		System.out.println(up - down);
 	}
 
 	private static String stringFromFile(String filePath) throws IOException {
