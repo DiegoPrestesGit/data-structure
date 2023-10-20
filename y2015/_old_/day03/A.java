@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class A {
 	public static void main(String[] args) throws IOException {
-		String filePath = "./input.txt";
+		String filePath = "./src/input.txt";
 		String stringFromFile = stringFromFile(filePath);
 
 		ArrayList<String> santaPath = new ArrayList<String>(Arrays.asList(stringFromFile.split("")));
