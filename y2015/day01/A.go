@@ -1,4 +1,4 @@
-package day01
+package y2015
 
 import (
 	"bufio"
@@ -6,10 +6,11 @@ import (
 	"os"
 )
 
-func main () {
-	readIt , err := os.ReadDir(".")
-	fmt.Println(readIt)
-	myFile, err := os.Open("./input.txt");
+type My2015 struct{}
+
+func (m My2015) Day01_A() {
+	fmt.Println("I GOT YOU HOMIE")
+	myFile, err := os.Open("./y2015/day01/input.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -17,10 +18,11 @@ func main () {
 	fileScanner := bufio.NewScanner(myFile)
 	fileScanner.Split(bufio.ScanWords)
 
+	str := ""
 	for fileScanner.Scan() {
-		fmt.Println(fileScanner.Text())
+		str += fileScanner.Text()
 	}
+	fmt.Println(len(str))
 
 	myFile.Close()
 }
-
