@@ -26,7 +26,9 @@ func main() {
 
 	date := strings.Split(os.Args[1], "/")
 
-	// Day01_A
 	callIt := "Day" + string(date[1][:len(date[1])-1]) + "_" + string(date[1][len(date[1])-1])
-	reflect.ValueOf(my).MethodByName(callIt).Call(nil)
+
+	fmt.Println("CALLING THIS", callIt)
+	inputTxtPath := "./y"+date[0]+"/"+"day"+date[1][:len(date[1]) - 1]+"/input.txt"
+	reflect.ValueOf(my).MethodByName(callIt).Call([]reflect.Value{reflect.ValueOf(inputTxtPath)})
 }

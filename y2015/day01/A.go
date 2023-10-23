@@ -8,9 +8,8 @@ import (
 
 type My2015 struct{}
 
-func (m My2015) Day01_A() {
-	fmt.Println("I GOT YOU HOMIE")
-	myFile, err := os.Open("./y2015/day01/input.txt")
+func readFile(testFile string) (string) {
+	myFile, err := os.Open(testFile)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -22,7 +21,22 @@ func (m My2015) Day01_A() {
 	for fileScanner.Scan() {
 		str += fileScanner.Text()
 	}
-	fmt.Println(len(str))
 
 	myFile.Close()
+	return str
+}
+
+func (m My2015) Day01_A(testFile string) {
+	fmt.Println("RUNNING Day01_A")
+	str := readFile(testFile)
+
+	floor := 0
+	for i := 0; i < len(str); i++ {
+		if str[i] == '(' {
+			floor += 1
+		} else {
+			floor -= 1
+		}
+	}
+	fmt.Println("FLOOR =>", floor)
 }
