@@ -45,6 +45,52 @@ func (m SharedType) Day03_A(testFile string) {
 }
 
 func (m SharedType) Day03_B(testFile string) {
+	str := ReturnFileContentByChar(testFile)
 
+	housesVisited := [][]int{{0,0}}
+	santaCounter := []int{0, 0}
+	robotCounter := []int{0, 0}
+
+	for i, v := range str {
+		switch(v) {
+		case 'v':
+			if i % 2 == 0 {
+				santaCounter = []int{santaCounter[0]-1, santaCounter[1]}
+				housesVisited = AddHouseNotVisited(housesVisited, santaCounter)
+			} else {
+				robotCounter = []int{robotCounter[0]-1, robotCounter[1]}
+				housesVisited = AddHouseNotVisited(housesVisited, robotCounter)
+			}
+			break
+		case '^':
+			if i % 2 == 0 {
+				santaCounter = []int{santaCounter[0]+1, santaCounter[1]}
+				housesVisited = AddHouseNotVisited(housesVisited, santaCounter)
+			} else {
+				robotCounter = []int{robotCounter[0]+1, robotCounter[1]}
+				housesVisited = AddHouseNotVisited(housesVisited, robotCounter)
+			}
+			break
+		case '<':
+			if i % 2 == 0 {
+				santaCounter = []int{santaCounter[0], santaCounter[1]-1}
+				housesVisited = AddHouseNotVisited(housesVisited, santaCounter)
+			} else {
+				robotCounter = []int{robotCounter[0], robotCounter[1]-1}
+				housesVisited = AddHouseNotVisited(housesVisited, robotCounter)
+			}
+			break
+		case '>':
+			if i % 2 == 0 {
+				santaCounter = []int{santaCounter[0], santaCounter[1]+1}
+				housesVisited = AddHouseNotVisited(housesVisited, santaCounter)
+			} else {
+				robotCounter = []int{robotCounter[0], robotCounter[1]+1}
+				housesVisited = AddHouseNotVisited(housesVisited, robotCounter)
+			}
+			break
+		}
+	}
+	fmt.Println(len(housesVisited))
 }
 
