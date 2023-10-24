@@ -33,19 +33,17 @@ func (m SharedType) Day02_A(testFile string) {
 }
 
 func (m SharedType) Day02_B(testFile string) {
-	fmt.Println("RUNNING Day02_A")
+	fmt.Println("RUNNING Day02_B")
 	var fileStr []string = ReturnFileByLine(testFile)
 
 	fullSum := 0
 	for _, str := range fileStr {
-		// str{3} length x width x height
-		// calculate area by: (2*l*w) + (2*w*h) + (2*h*l) + (the size of the smallest size)
 		str := strings.Split(str, "x")
 		l := StrParseInt(str[0])
 		w := StrParseInt(str[1])
 		h := StrParseInt(str[2])
-		sum := (2*l*w) + (2*w*h) + (2*h*l) + min((l*w), (w*h), (h*l))
+		sum := (l+l+w+w+h+h) - (max(l, w, h) + (max(l, w, h))) + (l * w * h)
 		fullSum += sum
 	}
-		fmt.Println(fullSum)
+	fmt.Println(fullSum)
 }
