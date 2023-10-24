@@ -40,7 +40,6 @@ func Check2letters2times (str string) (bool) {
 		for j := i+2; j<len(str);j++ {
 			verifying := string(str[j-1])+string(str[j])
 			if repeatedOne == verifying {
-				fmt.Println(str, repeatedOne)
 				return true
 			}
 		}
