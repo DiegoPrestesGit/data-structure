@@ -10,81 +10,136 @@ import (
 func (m SharedType) Day07_A(testFile string) {
 	str := ReturnFileByLine(testFile)
 
+	fmt.Println("original size", len(str))
 	signals := make(map[string]uint16)
-	gateCount := make(map[string]int)
-	for i, v := range str {
+	recursiveStuff(str, signals)
+}
+
+func recursiveStuff(remainStr []string, signals map[string]uint16) {
+	fmt.Println("REMAINING", len(remainStr))
+	if len(remainStr) == 0 {
+		fmt.Println("DONE!")
+		fmt.Println(signals)
+		return
+	}
+
+	for i, v := range remainStr {
+		// toda vez que uma instrucao for executada, "recursiveStuff" deve recomecar de forma recursiva
+		// e sem a instrucao que acabou de ser execuada, a condicao de parada é "remainStr" ter tamanho zero
 		lineSplit := strings.Split(v, "->")
 		operation := strings.Split(lineSplit[0][:len(lineSplit[0])-1], " ")
 		variable := strings.Trim(lineSplit[1], " ")
-
 		isStrReg := regexp.MustCompile("[a-zA-Z]")
-		// fmt.Println(signals)
-		switch(len(operation)) {
-		case 1: //atribution
-			gateCount["attribution"]++
-			if isStrReg.MatchString(operation[0]) {
-				fmt.Println("YES IT IS STRING", operation[0], signals[operation[0]])
-				signals[variable] = signals[operation[0]]
-			} else {
-				fmt.Println("NO ITS NOT", operation[0])
-				signals[variable] = ParseStr2uint16(operation[0])
-			}
-			break
 
-		case 2: // NOT operation
-			gateCount["not"]++
+		switch(len(operation)) {
+		// atribuicao
+		case 1:
+			if isStrReg.MatchString(operation[0]) {
+				if !checkKeyExists(signals, operation[0]) {
+					continue
+				} else {
+					signals[variable] = signals[operation[0]]
+					newStr := append(remainStr[:i], remainStr[i+1:]...)
+					recursiveStuff(newStr, signals)
+					fmt.Println(len(remainStr), "|", i, "|", v)
+					return
+				}
+			} else {
+				signals[variable] = ParseStr2uint16(operation[0])
+				newStr := append(remainStr[:i], remainStr[i+1:]...)
+				recursiveStuff(newStr, signals)
+				fmt.Println(len(remainStr), "|", i, "|", v)
+				return
+			}
+		// not operation
+		case 2:
+			if isStrReg.MatchString(operation[1]) && !checkKeyExists(signals, operation[1]) {
+				continue
+			}
 			signals[variable] = ^signals[operation[1]]
-			fmt.Println("NOT", signals[operation[1]], ^signals[operation[1]], signals[variable])
-		break
+			newStr := append(remainStr[:i], remainStr[i+1:]...)
+			recursiveStuff(newStr, signals)
+			fmt.Println(len(remainStr), "|", i, "|", v)
+			return
 
 		case 3:
-			if verifyValidInteger(operation[0]) || verifyValidInteger(operation[2]) {
-				fmt.Println(i, "WE GOT SOME NUMBERS OVER HEEEEERE", operation[0], operation[2])
-				if !verifyValidInteger(operation[0]) && signals[operation[0]] != 0 {
-					fmt.Println("VERY SPECIAL, indeed", signals[operation[0]])
-				}
-			}
-
 			if operation[1] == "AND" {
-				gateCount["and"]++
+				if ((!checkKeyExists(signals, operation[0]) && isStrReg.MatchString(operation[0])) ||
+				(!checkKeyExists(signals, operation[2]) && isStrReg.MatchString(operation[2]))){
+					continue
+				}
+
 				var opVal1 uint16 = internalAssertion(signals, operation[0], *isStrReg)
-				var opVal2 uint16 = internalAssertion(signals, operation[1], *isStrReg)
+				var opVal2 uint16 = internalAssertion(signals, operation[2], *isStrReg)
 				signals[variable] = opVal1 & opVal2
-				fmt.Println(i, "AND", opVal1, opVal2, signals[variable])
+				newStr := append(remainStr[:i], remainStr[i+1:]...)
+				recursiveStuff(newStr, signals)
+				fmt.Println(len(remainStr), "|", i, "|", v)
+				return
 			}
 			if operation[1] == "OR" {
-				gateCount["or"]++
+				if ((!checkKeyExists(signals, operation[0]) && isStrReg.MatchString(operation[0])) ||
+				(!checkKeyExists(signals, operation[2]) && isStrReg.MatchString(operation[2]))){
+					continue
+				}
+
 				var opVal1 uint16 = signals[operation[0]]
 				var opVal2 uint16 = signals[operation[2]]
 				signals[variable] = opVal1 | opVal2
-				fmt.Println(i, "OR", opVal1, opVal2, signals[variable])
+				newStr := append(remainStr[:i], remainStr[i+1:]...)
+				recursiveStuff(newStr, signals)
+				fmt.Println(len(remainStr), "|", i, "|", v)
+				return
 			}
 			if operation[1] == "LSHIFT" {
-				gateCount["lshift"]++
+				if !checkKeyExists(signals, operation[0]) && isStrReg.MatchString(operation[0]) {
+					continue
+				}
+
 				var opVal1 uint16 = signals[operation[0]]
 				var opVal2 uint16 = ParseStr2uint16(operation[2])
 				signals[variable] = opVal1 << opVal2
-				fmt.Println(i, "LSHIFT", opVal1, opVal2, signals[variable])
+				newStr := append(remainStr[:i], remainStr[i+1:]...)
+				recursiveStuff(newStr, signals)
+				fmt.Println(len(remainStr), "|", i, "|", v)
+				return
 			}
 			if operation[1] == "RSHIFT" {
-				gateCount["rshift"]++
+				if !checkKeyExists(signals, operation[0]) && isStrReg.MatchString(operation[0]) {
+					continue
+				}
+
 				var opVal1 uint16 = signals[operation[0]]
 				var opVal2 uint16 = ParseStr2uint16(operation[2])
 				signals[variable] = opVal1 >> opVal2
-				fmt.Println(i, "RSHIFT", opVal1, opVal2, signals[variable])
+				newStr := append(remainStr[:i], remainStr[i+1:]...)
+				recursiveStuff(newStr, signals)
+				fmt.Println(len(remainStr), "|", i, "|", v)
+				return
 			}
 		break
 
 		default:
 			fmt.Println("THE DEFAULT CASE")
+		break
 		}
 	}
-	fmt.Println(gateCount)
-	fmt.Println("value of A:", signals["a"])
+	fmt.Println(signals)
+}
+
+func checkKeyExists(signals map[string]uint16, key string) (bool) {
+	for k := range signals {
+		if k == key {
+
+			return true
+		}
+	}
+
+	return false
 }
 
 func ParseStr2uint16 (str string) (uint16) {
-	val, err := strconv.ParseInt(str, 0, 16); if err != nil {
+	val, err := strconv.Atoi(str); if err != nil {
 		panic("AT THE DISCO (ParseStr2uint16)")
 	}
 
