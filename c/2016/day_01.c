@@ -51,7 +51,9 @@ int main() {
     int record_cords[256][2];
     int records_counter = 0;
 
-    int visited_twice[2] = {0, 0};
+    int visited_twice[2];
+    visited_twice[0] = 0;
+    visited_twice[1] = 0;
 
     int found_visited_twice = 0;
 
@@ -106,16 +108,19 @@ int main() {
             record_cords[records_counter][1] = coords[1];
 
             if (found_visited_twice == 0) {
-                for (int j = 0; j < records_counter - 1; j++) {
+                for (int j = 0; j < records_counter; j++) {
                     if (coords[0] == record_cords[j][0] &&
                         coords[1] == record_cords[j][1]) {
                         *visited_twice = *coords;
-                        found_visited_twice = 1;
+                        // found_visited_twice = 1;
+
                         printf("VISITED TWICE:: %d %d\n", visited_twice[0],
                                visited_twice[1]);
                     }
                 }
             }
+
+            printf("FUCK THIS: %d %d\n", *record_cords[0], *record_cords[1]);
 
             i++;
             records_counter++;
@@ -126,6 +131,8 @@ int main() {
     }
 
     printf("PART ONE ANSWER: %d\n", abs(coords[0]) + abs(coords[1]));
+    printf("PART TWO ANSWER: %d\n",
+           abs(visited_twice[0] + abs(visited_twice[1])));
 
     free(file_data.fbuffer);
 
