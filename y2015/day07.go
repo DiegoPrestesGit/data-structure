@@ -31,7 +31,7 @@ func recursiveStuff(remainStr []string, signals map[string]uint16) {
 		variable := strings.Trim(lineSplit[1], " ")
 		isStrReg := regexp.MustCompile("[a-zA-Z]")
 
-		switch(len(operation)) {
+		switch len(operation) {
 		// atribuicao
 		case 1:
 			if isStrReg.MatchString(operation[0]) {
@@ -64,8 +64,8 @@ func recursiveStuff(remainStr []string, signals map[string]uint16) {
 
 		case 3:
 			if operation[1] == "AND" {
-				if ((!checkKeyExists(signals, operation[0]) && isStrReg.MatchString(operation[0])) ||
-				(!checkKeyExists(signals, operation[2]) && isStrReg.MatchString(operation[2]))){
+				if (!checkKeyExists(signals, operation[0]) && isStrReg.MatchString(operation[0])) ||
+					(!checkKeyExists(signals, operation[2]) && isStrReg.MatchString(operation[2])) {
 					continue
 				}
 
@@ -78,8 +78,8 @@ func recursiveStuff(remainStr []string, signals map[string]uint16) {
 				return
 			}
 			if operation[1] == "OR" {
-				if ((!checkKeyExists(signals, operation[0]) && isStrReg.MatchString(operation[0])) ||
-				(!checkKeyExists(signals, operation[2]) && isStrReg.MatchString(operation[2]))){
+				if (!checkKeyExists(signals, operation[0]) && isStrReg.MatchString(operation[0])) ||
+					(!checkKeyExists(signals, operation[2]) && isStrReg.MatchString(operation[2])) {
 					continue
 				}
 
@@ -117,20 +117,19 @@ func recursiveStuff(remainStr []string, signals map[string]uint16) {
 				fmt.Println(len(remainStr), "|", i, "|", v)
 				return
 			}
-		break
+			break
 
 		default:
 			fmt.Println("THE DEFAULT CASE")
-		break
+			break
 		}
 	}
 	fmt.Println(signals)
 }
 
-func checkKeyExists(signals map[string]uint16, key string) (bool) {
+func checkKeyExists(signals map[string]uint16, key string) bool {
 	for k := range signals {
 		if k == key {
-
 			return true
 		}
 	}
@@ -138,15 +137,16 @@ func checkKeyExists(signals map[string]uint16, key string) (bool) {
 	return false
 }
 
-func ParseStr2uint16 (str string) (uint16) {
-	val, err := strconv.Atoi(str); if err != nil {
+func ParseStr2uint16(str string) uint16 {
+	val, err := strconv.Atoi(str)
+	if err != nil {
 		panic("AT THE DISCO (ParseStr2uint16)")
 	}
 
 	return uint16(val)
 }
 
-func internalAssertion (signals map[string]uint16, str string, regie regexp.Regexp) (uint16) {
+func internalAssertion(signals map[string]uint16, str string, regie regexp.Regexp) uint16 {
 	if regie.MatchString(str) { // it is a signal variable
 		return signals[str]
 	} else { // it is a number
@@ -154,13 +154,13 @@ func internalAssertion (signals map[string]uint16, str string, regie regexp.Rege
 	}
 }
 
-func verifyValidInteger (n string) (bool) {
-	_, er := strconv.Atoi(n); if er != nil {
+func verifyValidInteger(n string) bool {
+	_, er := strconv.Atoi(n)
+	if er != nil {
 		return false
 	}
 	return true
 }
-
 
 /*
 func Integer2binary(n int) (string) {

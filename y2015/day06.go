@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func (m SharedType) Day06_A (testFile string) {
+func (m SharedType) Day06_A(testFile string) {
 	str := ReturnFileByLine(testFile)
 
 	size := 1_000
@@ -42,27 +42,27 @@ func (m SharedType) Day06_A (testFile string) {
 	fmt.Println(counted)
 }
 
-func lightsOn (matrix [][]int, begin []int, end []int) ([][]int) {
-	for i:=begin[0]; i <= end[0]; i++ {
-		for j:=begin[1]; j <= end[1]; j++ {
+func lightsOn(matrix [][]int, begin []int, end []int) [][]int {
+	for i := begin[0]; i <= end[0]; i++ {
+		for j := begin[1]; j <= end[1]; j++ {
 			matrix[i][j] = 1
 		}
 	}
 	return matrix
 }
 
-func lightsOff (matrix [][]int, begin []int, end []int) ([][]int) {
-	for i:=begin[0]; i <= end[0]; i++ {
-		for j:=begin[1]; j <= end[1]; j++ {
+func lightsOff(matrix [][]int, begin []int, end []int) [][]int {
+	for i := begin[0]; i <= end[0]; i++ {
+		for j := begin[1]; j <= end[1]; j++ {
 			matrix[i][j] = 0
 		}
 	}
 	return matrix
 }
 
-func toggle (matrix [][]int, begin []int, end []int) ([][]int) {
-	for i:=begin[0]; i <= end[0]; i++ {
-		for j:=begin[1]; j <= end[1]; j++ {
+func toggle(matrix [][]int, begin []int, end []int) [][]int {
+	for i := begin[0]; i <= end[0]; i++ {
+		for j := begin[1]; j <= end[1]; j++ {
 			if matrix[i][j] == 1 {
 				matrix[i][j] = 0
 			} else {
@@ -73,7 +73,7 @@ func toggle (matrix [][]int, begin []int, end []int) ([][]int) {
 	return matrix
 }
 
-func count (matrix [][]int) (int) {
+func count(matrix [][]int) int {
 	count := 0
 	for rowIdx, row := range matrix {
 		for colIdx := range row {
@@ -85,8 +85,7 @@ func count (matrix [][]int) (int) {
 	return count
 }
 
-
-func (m SharedType) Day06_B (testFile string) {
+func (m SharedType) Day06_B(testFile string) {
 	str := ReturnFileByLine(testFile)
 
 	size := 1_000
@@ -122,18 +121,18 @@ func (m SharedType) Day06_B (testFile string) {
 	fmt.Println(counted)
 }
 
-func lightsOn_B (matrix [][]int, begin []int, end []int) ([][]int) {
-	for i:=begin[0]; i <= end[0]; i++ {
-		for j:=begin[1]; j <= end[1]; j++ {
+func lightsOn_B(matrix [][]int, begin []int, end []int) [][]int {
+	for i := begin[0]; i <= end[0]; i++ {
+		for j := begin[1]; j <= end[1]; j++ {
 			matrix[i][j] += 1
 		}
 	}
 	return matrix
 }
 
-func lightsOff_B (matrix [][]int, begin []int, end []int) ([][]int) {
-	for i:=begin[0]; i <= end[0]; i++ {
-		for j:=begin[1]; j <= end[1]; j++ {
+func lightsOff_B(matrix [][]int, begin []int, end []int) [][]int {
+	for i := begin[0]; i <= end[0]; i++ {
+		for j := begin[1]; j <= end[1]; j++ {
 			if matrix[i][j] > 0 {
 				matrix[i][j] -= 1
 			}
@@ -142,16 +141,16 @@ func lightsOff_B (matrix [][]int, begin []int, end []int) ([][]int) {
 	return matrix
 }
 
-func toggle_B (matrix [][]int, begin []int, end []int) ([][]int) {
-	for i:=begin[0]; i <= end[0]; i++ {
-		for j:=begin[1]; j <= end[1]; j++ {
+func toggle_B(matrix [][]int, begin []int, end []int) [][]int {
+	for i := begin[0]; i <= end[0]; i++ {
+		for j := begin[1]; j <= end[1]; j++ {
 			matrix[i][j] += 2
 		}
 	}
 	return matrix
 }
 
-func countBrightness (matrix [][]int) (int) {
+func countBrightness(matrix [][]int) int {
 	count := 0
 	for rowIdx, row := range matrix {
 		for colIdx := range row {
@@ -160,4 +159,3 @@ func countBrightness (matrix [][]int) (int) {
 	}
 	return count
 }
-

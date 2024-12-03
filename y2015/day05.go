@@ -5,8 +5,8 @@ import (
 	"regexp"
 )
 
-func CheckConsecutiveCharacters(str string) (bool) {
-	for i:= 1; i < len(str); i++ {
+func CheckConsecutiveCharacters(str string) bool {
+	for i := 1; i < len(str); i++ {
 		if str[i] == str[i-1] {
 			return true
 		}
@@ -34,11 +34,11 @@ func (m SharedType) Day05_A(testFile string) {
 	fmt.Println("nice ones", niceOnes)
 }
 
-func Check2letters2times (str string) (bool) {
-	for i:=1; i<len(str);i++ {
-		var repeatedOne string = string(str[i-1])+string(str[i])
-		for j := i+2; j<len(str);j++ {
-			verifying := string(str[j-1])+string(str[j])
+func Check2letters2times(str string) bool {
+	for i := 1; i < len(str); i++ {
+		var repeatedOne string = string(str[i-1]) + string(str[i])
+		for j := i + 2; j < len(str); j++ {
+			verifying := string(str[j-1]) + string(str[j])
 			if repeatedOne == verifying {
 				return true
 			}
@@ -48,8 +48,8 @@ func Check2letters2times (str string) (bool) {
 	return false
 }
 
-func CheckSameLetterWith1inBetween (str string) (bool) {
-	for i:=1; i < len(str)-1;i++ {
+func CheckSameLetterWith1inBetween(str string) bool {
+	for i := 1; i < len(str)-1; i++ {
 		if str[i-1] == str[i+1] {
 			return true
 		}

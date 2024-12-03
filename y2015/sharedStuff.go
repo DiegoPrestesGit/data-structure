@@ -6,10 +6,9 @@ import (
 	"os"
 )
 
-type SharedType struct {}
+type SharedType struct{}
 
-
-func ReturnFileContentByChar(testFile string) (string) {
+func ReturnFileContentByChar(testFile string) string {
 	myFile, err := os.Open(testFile)
 	if err != nil {
 		fmt.Println(err)
@@ -27,7 +26,7 @@ func ReturnFileContentByChar(testFile string) (string) {
 	return str
 }
 
-func ReturnFileByLine(testFile string) ([]string) {
+func ReturnFileByLine(testFile string) []string {
 	myFile, err := os.Open(testFile)
 	if err != nil {
 		fmt.Println(err)
@@ -43,4 +42,3 @@ func ReturnFileByLine(testFile string) ([]string) {
 
 	return str
 }
-

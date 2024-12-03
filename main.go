@@ -12,14 +12,14 @@ import (
 
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Println("plzz send dudes (I mean the date as argument like this: yyyy-dd)")
+		fmt.Println("plzz send dudes (I mean the date as argument like this: yyyy/dd[A-B] e.g. 2015/05B)")
 		return
 	}
 
-	var myRegex = regexp.MustCompile(`^[0-9]{4}/[0-9]{2}[A-B]{1}$`)
+	myRegex := regexp.MustCompile(`^[0-9]{4}/[0-9]{2}[A-B]{1}$`)
 	didMatch := myRegex.MatchString(os.Args[1])
 	if !didMatch {
-		fmt.Println("plzz use yyyy/dd[A-B] format")
+		fmt.Println("plzz use yyyy/dd[A-B] format e.g. 2015/05B")
 		return
 	}
 	my := y2015.SharedType{}
@@ -28,6 +28,6 @@ func main() {
 	callIt := "Day" + string(date[1][:len(date[1])-1]) + "_" + string(date[1][len(date[1])-1])
 	fmt.Println("CALLING THIS", callIt)
 
-	inputTxtPath := "./y"+date[0]+"/"+"/input" + date[1][:len(date[1]) - 1] + ".txt"
+	inputTxtPath := "./y" + date[0] + "/" + "/input" + date[1][:len(date[1])-1] + ".txt"
 	reflect.ValueOf(my).MethodByName(callIt).Call([]reflect.Value{reflect.ValueOf(inputTxtPath)})
 }

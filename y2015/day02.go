@@ -6,12 +6,12 @@ import (
 	"strings"
 )
 
-func StrParseInt(str string) (int) {
-	val, err := strconv.Atoi(str); if err != nil {
+func StrParseInt(str string) int {
+	val, err := strconv.Atoi(str)
+	if err != nil {
 		panic(err)
 	}
 	return val
-
 }
 
 func (m SharedType) Day02_A(testFile string) {
@@ -26,10 +26,10 @@ func (m SharedType) Day02_A(testFile string) {
 		l := StrParseInt(str[0])
 		w := StrParseInt(str[1])
 		h := StrParseInt(str[2])
-		sum := (2*l*w) + (2*w*h) + (2*h*l) + min((l*w), (w*h), (h*l))
+		sum := (2 * l * w) + (2 * w * h) + (2 * h * l) + min((l*w), (w*h), (h*l))
 		fullSum += sum
 	}
-		fmt.Println(fullSum)
+	fmt.Println(fullSum)
 }
 
 func (m SharedType) Day02_B(testFile string) {
@@ -42,7 +42,7 @@ func (m SharedType) Day02_B(testFile string) {
 		l := StrParseInt(str[0])
 		w := StrParseInt(str[1])
 		h := StrParseInt(str[2])
-		sum := (l+l+w+w+h+h) - (max(l, w, h) + (max(l, w, h))) + (l * w * h)
+		sum := (l + l + w + w + h + h) - (max(l, w, h) + (max(l, w, h))) + (l * w * h)
 		fullSum += sum
 	}
 	fmt.Println(fullSum)

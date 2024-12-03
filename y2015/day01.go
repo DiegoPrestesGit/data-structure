@@ -37,4 +37,3 @@ func (m SharedType) Day01_B(testFile string) {
 	fmt.Println("FLOOR =>", floor)
 	fmt.Println("COUNTING =>", count)
 }
-

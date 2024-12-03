@@ -12,7 +12,7 @@ func (m SharedType) Day04_A(testFile string) {
 
 	count := 0
 	for true {
-		data := []byte(str+strconv.Itoa(count))
+		data := []byte(str + strconv.Itoa(count))
 		hash := md5.Sum(data)
 		hashStr := fmt.Sprintf("%x", hash)
 
@@ -31,7 +31,7 @@ func (m SharedType) Day04_B(testFile string) {
 
 	count := 0
 	for true {
-		data := []byte(str+strconv.Itoa(count))
+		data := []byte(str + strconv.Itoa(count))
 		hash := md5.Sum(data)
 		hashStr := fmt.Sprintf("%x", hash)
 
@@ -43,4 +43,3 @@ func (m SharedType) Day04_B(testFile string) {
 		count++
 	}
 }
-
